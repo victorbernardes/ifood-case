@@ -1,6 +1,6 @@
 # Solução Data Lake — iFood Case
 
-![Arquitetura Data Lake NYC Taxi](arquitetura.jpg)
+![Arquitetura Data Lake NYC Taxi](analysis/arquitetura.jpg)
 
 Pipeline de dados para corridas de táxi em NYC utilizando AWS (S3, Glue, Athena).  
 O fluxo segue o modelo **Bronze → Silver → Gold**, com armazenamento em S3, processamento Spark e consultas/materializações via Athena.
@@ -209,4 +209,5 @@ Por fim, para a camada Gold, é executado diretamente por script SQL no AWS Athe
 - Implementar testes unitários & integração local com conjunto amostral de Parquet (moto/localstack para S3 mocks) para validar o pipeline antes de rodar em produção.
 - Deixar parametrizavel fonte dos dados Landing (catalogar de acordo com data)
 - Automatizar deploy dos Glue Jobs e DDLs via IaC (CloudFormation / CDK / Terraform).
+
 
