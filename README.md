@@ -211,3 +211,4 @@ Por fim, para a camada Gold, é executado diretamente por script SQL no AWS Athe
 - Automatizar deploy dos Glue Jobs e DDLs via IaC (CloudFormation / CDK / Terraform).
 
 
+
