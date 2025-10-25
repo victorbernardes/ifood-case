@@ -159,21 +159,23 @@ Por fim, para a camada Gold, é executado diretamente por script SQL no AWS Athe
    - Glue: `CreateTable`, `UpdateTable`, `GetPartitions`  
    - Athena: `StartQueryExecution`, `GetQueryExecution`  
    - CloudWatch Logs
+   - Crie role para executar Glue
 
 2. **Criar tabelas no catálogo**
+   - Criar databases dados_taxi_bronze, dados_taxi_silver, dados_taxi_gold, via script ou através do Glue Data Catalog.
    - No console Athena cole/execute o conteúdo de `src/ddl/scripts_ddl.sql` para criar as tabelas Bronze/Silver/Gold.
 
-3. **Executar Bronze**
+4. **Executar Bronze**
    - Opção A (Glue job): crie um Glue Job (Worker Type conforme necessidade) usando `src/glue/processamento_dados_bronze.py`. No job settings, informe `NumberOfWorkers` e o role correto.
    - Opção B (Glue Notebook): abra `glue/processamento_glue_notebook.ipynb` no Glue Studio e execute célula-a-célula.
 
-4. **Executar Silver**
+5. **Executar Silver**
     - Use `src/glue/processamento_dados_silver.py` como Glue Job, ou execute o bloco Silver do notebook.
     
-5. **Gerar Gold (materializações)**
+6. **Gerar Gold (materializações)**
     - Execute os blocos SQL do final de `src/ddl/scripts_ddl.sql` no Athena para criar as tabelas/materializações em S3.
 
-6. **Validar resultados**
+7. **Validar resultados**
     - Verificar S3:
         - s3://ifood-case-bronze/
         - s3://ifood-case-silver/
@@ -182,7 +184,7 @@ Por fim, para a camada Gold, é executado diretamente por script SQL no AWS Athe
     - Rode queries para gerar camada gold com a resposta final das perguntas
     - Arquivos CSV disponíveis na pasta analysis
 
-7. **Evidencias**
+8. **Evidencias**
     - As evidências de todas execuções e dados estão em analysis -> evidencias
 
 ## Cuidados Operacionais e Troubleshooting
@@ -209,6 +211,7 @@ Por fim, para a camada Gold, é executado diretamente por script SQL no AWS Athe
 - Implementar testes unitários & integração local com conjunto amostral de Parquet (moto/localstack para S3 mocks) para validar o pipeline antes de rodar em produção.
 - Deixar parametrizavel fonte dos dados Landing (catalogar de acordo com data)
 - Automatizar deploy dos Glue Jobs e DDLs via IaC (CloudFormation / CDK / Terraform).
+
 
 
 
