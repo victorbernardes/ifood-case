@@ -154,16 +154,17 @@ Por fim, para a camada Gold, é executado diretamente por script SQL no AWS Athe
 
 ## Como Rodar (Passo-a-Passo)
 
-1. **Preparar permissões**  
+1. **Preparar Ambiente**  
    - S3: `GetObject`, `PutObject`, `DeleteObject`  
    - Glue: `CreateTable`, `UpdateTable`, `GetPartitions`  
    - Athena: `StartQueryExecution`, `GetQueryExecution`  
    - CloudWatch Logs
    - Crie role para executar Glue
+   - Criar buckets ifood-case-repo, ifood-case-bronze, ifood-case-silver, ifood-case-gold
 
 2. **Criar tabelas no catálogo**
    - Criar databases dados_taxi_bronze, dados_taxi_silver, dados_taxi_gold, via script ou através do Glue Data Catalog.
-   - No console Athena cole/execute o conteúdo de `src/ddl/scripts_ddl.sql` para criar as tabelas Bronze/Silver/Gold.
+   - No console Athena cole/execute o conteúdo de `src/ddl/scripts_ddl.sql` para criar as tabelas Bronze/Silver.
 
 4. **Executar Bronze**
    - Opção A (Glue job): crie um Glue Job (Worker Type conforme necessidade) usando `src/glue/processamento_dados_bronze.py`. No job settings, informe `NumberOfWorkers` e o role correto.
@@ -210,7 +211,8 @@ Por fim, para a camada Gold, é executado diretamente por script SQL no AWS Athe
 ## Próximos Passos / Melhorias
 - Implementar testes unitários & integração local com conjunto amostral de Parquet (moto/localstack para S3 mocks) para validar o pipeline antes de rodar em produção.
 - Deixar parametrizavel fonte dos dados Landing (catalogar de acordo com data)
-- Automatizar deploy dos Glue Jobs e DDLs via IaC (CloudFormation / CDK / Terraform).
+- Automatizar deploy dos Glue Jobs e DDLs via IaC, e DLT (CloudFormation / CDK / Terraform).
+
 
 
 
